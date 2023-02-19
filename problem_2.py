@@ -21,8 +21,8 @@
 
 def parentheses_sequence(input_seq):
     stack = []
-    parentheses_symbols = frozenset(
-        ['<', '>', '{', '}', '[', ']', '(', ')']
+    open_parentheses_symbols = frozenset(
+        ['<', '{', '[', '(',]
     )
     parentheses_dict = {
         '>': '<',
@@ -33,13 +33,13 @@ def parentheses_sequence(input_seq):
 
     last_opened_parenthesis_idx = None
     for index, character in enumerate(input_seq):
-        if character in parentheses_symbols:
-            if character in parentheses_dict:
-                if not len(stack) or stack.pop() != parentheses_dict[character]:
-                    return index + 1
-            else:
-                stack.append(character)
-                last_opened_parenthesis_idx = index + 1
+        if character in open_parentheses_symbols:
+            stack.append(character)
+            last_opened_parenthesis_idx = index + 1
+
+        if character in parentheses_dict:
+            if not stack or stack.pop() != parentheses_dict[character]:
+                return index + 1
 
     if stack:
         return last_opened_parenthesis_idx
