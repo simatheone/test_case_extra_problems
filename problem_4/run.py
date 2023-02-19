@@ -103,7 +103,6 @@ def insert_data_into_table(conn, file_name, file_type, all_chunks_data):
             """,
             (file_name, file_type, *all_chunks_data[:2]),
         )
-        conn.commit()
 
         cursor.execute(
             """
@@ -113,7 +112,6 @@ def insert_data_into_table(conn, file_name, file_type, all_chunks_data):
             """,
             (*all_chunks_data[2:4],),
         )
-        conn.commit()
 
         cursor.execute(
             """
