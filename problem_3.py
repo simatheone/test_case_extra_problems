@@ -34,3 +34,31 @@ class TEST(metaclass=IterableTest):
 
 for color in TEST:
     print(color)
+
+
+class TestClass(metaclass=IterableTest):
+    red = 'red1'
+    blue = 'blue1'
+    green = 'green1'
+    _hidden_1 = 'hidden1'
+    __hidden_2 = 'hidden2'
+
+    def new_method_1(self):
+        ...
+
+    def _new_method_2(self):
+        ...
+
+    def __new_method_3(self):
+        ...
+
+
+def test_correct_iteration_over_class_attrs(TestClass):
+    result = []
+    for color in TestClass:
+        result.append(color)
+    assert result == ['red1', 'blue1', 'green1']
+    return 'test_correct_iteration_over_class -> Correct'
+
+
+print(test_correct_iteration_over_class_attrs(TestClass))
